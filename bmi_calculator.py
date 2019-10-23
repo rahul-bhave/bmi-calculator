@@ -12,7 +12,7 @@ app = Flask(__name__)
 def calculate_bmi(number,number1):
     "Calculate the BMI"
     
-    return number1/number**2
+    return round(number1/(number*number))
 
 @app.route("/", methods=['GET', 'POST'])
 #@app.route("/factorial", methods=['GET', 'POST'])
@@ -28,15 +28,15 @@ def calculate_bmi(number,number1):
         #api_response = {"answer": result}
         #return jsonify(api_response)
 
-@app.route("/factorial", methods=['GET', 'POST'])
+@app.route("/bmicalculator", methods=['GET', 'POST'])
 def bmicalculator():
     if request.method == 'GET':
         #return the form
         return render_template('bmicalculator.html')
     if request.method == 'POST':
         #return the answer
-        number = int(request.form.get('number'))
-        number1= int(request.form.get('number1'))
+        number = float(request.form.get('number'))
+        number1= float(request.form.get('number1'))
         result = calculate_bmi(number,number1)
         api_response = {"answer": result}
         return jsonify(api_response)
